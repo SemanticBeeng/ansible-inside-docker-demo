@@ -18,7 +18,18 @@ RUN ansible-galaxy install \
     ANXS.perl \
     ANXS.monit \
     ANXS.nginx
-ADD site.yml /srv/ansible/site.yml
+
+# 
+RUN mkdir -p /home/vagrant
+ADD site.yml           /srv/ansible/site.yml
+
+ENV ANSIBLE_GATHERING smart
+ENV ANSIBLE_HOST_KEY_CHECKING false
+ENV ANSIBLE_RETRY_FILES_ENABLED false
+ENV ANSIBLE_ROLES_PATH /ansible/playbooks/roles
+ENV ANSIBLE_SSH_PIPELINING True
+ENV PATH /ansible/bin:$PATH
+ENV PYTHONPATH /ansible/lib
 
 CMD ["/sbin/my_init"]
 
