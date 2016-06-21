@@ -7,11 +7,11 @@ RUN apt-get update && \
 RUN pip install --upgrade setuptools 
 RUN pip install ansible
 RUN ansible-galaxy install \
-    Ansibles.hostname \
-    Ansibles.apt \
-    Ansibles.build-essential \
-    Ansibles.perl \
-    Ansibles.monit \
+    ANXS.hostname \
+    ANXS.apt \
+    ANXS.build-essential \
+    ANXS.perl \
+    ANXS.monit \
     ANXS.nginx
 ADD site.yml /srv/ansible/site.yml
 
