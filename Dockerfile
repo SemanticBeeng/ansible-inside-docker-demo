@@ -21,3 +21,4 @@ RUN ansible-galaxy install \
 ADD site.yml /srv/ansible/site.yml
 
 CMD ["/sbin/my_init"]
+
