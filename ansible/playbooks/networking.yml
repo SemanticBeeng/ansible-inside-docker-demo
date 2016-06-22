@@ -4,10 +4,9 @@
   become: yes
   become_user: root
 
-  # sample tasks to ensure things *just work*
   tasks:
 
     # set hostname
     - name: set hostname
-      hostname: name='smalldatafierce-vm'
+      hostname: name=smalldatafierce-vm
 

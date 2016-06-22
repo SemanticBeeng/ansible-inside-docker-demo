@@ -25,6 +25,8 @@ RUN ansible-galaxy install \
 # 
 ADD site.yml           /srv/ansible/site.yml
 
+#RUN hostname devopscontrol
+
 ENV ANSIBLE_GATHERING smart
 ENV ANSIBLE_HOST_KEY_CHECKING false
 ENV ANSIBLE_RETRY_FILES_ENABLED false
