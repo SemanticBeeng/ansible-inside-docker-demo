@@ -2,7 +2,6 @@ export cwd=$(pwd)/config
 export mnt=/var/opt
 
 docker run -it \
-    --link synergo/ansible-target:0.1 \
     -v $cwd/hosts:$mnt/hosts \
     -v $cwd/ansible_id_rsa:/root/.ssh/id_rsa \
     -v $cwd/ansible_id_rsa.pub:/root/.ssh/id_rsa.pub \
