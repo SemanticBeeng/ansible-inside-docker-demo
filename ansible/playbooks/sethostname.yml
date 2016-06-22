@@ -1,0 +1,12 @@
+---
+- hosts: 172.17.0.2
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+
+  # sample tasks to ensure things *just work*
+  tasks:
+
+    # set hostname
+    - name: Create hostname entry 
+      lineinfile: dest=/etc/hostname state=present create=yes regexp='.*' line='smalldatafierce-vm'
