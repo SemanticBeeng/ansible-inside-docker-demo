@@ -2,7 +2,7 @@ export cwd=$(pwd)/config
 export mnt=/var/opt
 
 docker run -it \
-    -v $cwd/hosts:$mnt/hosts \
+    -v $cwd/hosts:/etc/ansible/hosts \
     -v $cwd/ansible_id_rsa:/root/.ssh/id_rsa \
     -v $cwd/ansible_id_rsa.pub:/root/.ssh/id_rsa.pub \
     -v $(pwd)/ansible:$mnt/ansible \

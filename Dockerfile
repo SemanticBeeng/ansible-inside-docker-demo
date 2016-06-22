@@ -25,9 +25,9 @@ RUN ansible-galaxy install \
 # 
 ADD site.yml           /srv/ansible/site.yml
 
-RUN echo "[local]"         >> /etc/ansible/hosts && \
-    echo "localhost"       >> /etc/ansible/hosts && \
-    echo "192.168.100.100" >> /etc/ansible/hosts
+#RUN echo "[local]"         >> /etc/ansible/hosts && \
+#    echo "localhost"       >> /etc/ansible/hosts && \
+#    echo "192.168.100.100" >> /etc/ansible/hosts
 
 ENV ANSIBLE_GATHERING smart
 ENV ANSIBLE_HOST_KEY_CHECKING false
