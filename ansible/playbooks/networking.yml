@@ -8,5 +8,6 @@
   tasks:
 
     # set hostname
-    - name: Create hostname entry 
-      lineinfile: dest=/etc/hostname state=present create=yes regexp='.*' line='smalldatafierce-vm'
+    - name: set hostname
+      hostname: name='smalldatafierce-vm'
+
