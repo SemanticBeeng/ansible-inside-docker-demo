@@ -1,3 +1,2 @@
 [test]
-ansible_target
 172.17.0.2
