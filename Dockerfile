@@ -7,6 +7,8 @@ RUN apt-get update && \
     apt-get install -y \
 	libffi-dev \
         libssl-dev \ 
+        libsystemd-journal-dev \
+        libapparmor-dev \
         python \
         python-dev \
         python-pip && \

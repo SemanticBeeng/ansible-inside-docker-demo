@@ -8,11 +8,11 @@ docker run -it \
     -v $cwd/ansible_id_rsa:/root/.ssh/id_rsa \
     -v $cwd/ansible_id_rsa.pub:/root/.ssh/id_rsa.pub \
     -v $(pwd)/ansible:$mnt/ansible \
+    -v /usr/bin/docker:/usr/bin/docker \
+    -e DOCKER_HOST=$DOCKER_HOST \
     synergo/ansible-examples:0.1 \
     /sbin/my_init --skip-startup-files --skip-runit -- \
     bash
-#    ansible-playbook /srv/ansible/site.yml \
-#    -i $(pwd)/hosts -u vagrant --private-key=$(cwd)/insecure_private_key
 
 
 
