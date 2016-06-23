@@ -1,5 +1,5 @@
 ---
-- hosts: 172.17.0.2
+- hosts: smalldatafierce-vm
   remote_user: ubuntu
   become: yes
   become_user: root
