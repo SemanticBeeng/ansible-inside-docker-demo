@@ -4,6 +4,7 @@ export mnt=/var/opt
 docker run -it \
     -h devopscontrol \
     -v $cwd/hosts:/etc/ansible/hosts \
+    -v $cwd/ansible.cfg:/etc/ansible/ansible.cfg \
     -v $cwd/ansible_id_rsa:/root/.ssh/id_rsa \
     -v $cwd/ansible_id_rsa.pub:/root/.ssh/id_rsa.pub \
     -v $(pwd)/ansible:$mnt/ansible \
