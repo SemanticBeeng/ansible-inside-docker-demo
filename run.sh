@@ -8,6 +8,7 @@ docker run -it \
     -v $cwd/ansible_id_rsa:/root/.ssh/id_rsa \
     -v $cwd/ansible_id_rsa.pub:/root/.ssh/id_rsa.pub \
     -v $(pwd)/ansible:$mnt/ansible \
+    -w $mnt/ansible \
     -v /usr/bin/docker:/usr/bin/docker \
     -e DOCKER_HOST=$DOCKER_HOST \
     synergo/ansible-examples:0.1 \
