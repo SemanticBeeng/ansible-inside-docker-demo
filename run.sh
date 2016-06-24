@@ -10,6 +10,7 @@ docker run -it \
     -v $(pwd)/ansible:$mnt/ansible \
     -w $mnt/ansible \
     -v /usr/bin/docker:/usr/bin/docker \
+    -v /usr/bin/docker-compose:/usr/bin/docker-compose \
     -e DOCKER_HOST=$DOCKER_HOST \
     synergo/ansible-examples:0.1 \
     /sbin/my_init --skip-startup-files --skip-runit -- \

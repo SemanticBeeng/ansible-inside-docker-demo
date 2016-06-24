@@ -14,7 +14,9 @@ RUN apt-get update && \
         python-pip && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN pip install --upgrade setuptools 
+RUN pip install --upgrade setuptools pip
+RUN pip install 'docker-py>=1.7.0'
+
 RUN pip install ansible
 RUN ansible-galaxy install \
     ANXS.hostname \
