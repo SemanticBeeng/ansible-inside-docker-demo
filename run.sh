@@ -1,5 +1,9 @@
-export cwd=$(pwd)/config
+export docker_projects=/development/projects/01_devops/docker
+export cprj=$docker_projects/ansible-inside-docker-demo
+export cwd=$cprj/config
 export mnt=/var/opt
+
+echo 'cwd' $cwd
 
 docker run -it \
     -h devopscontrol \
@@ -7,10 +11,10 @@ docker run -it \
     -v $cwd/ansible.cfg:/etc/ansible/ansible.cfg \
     -v $cwd/ansible_id_rsa:/root/.ssh/id_rsa \
     -v $cwd/ansible_id_rsa.pub:/root/.ssh/id_rsa.pub \
-    -v $(pwd)/ansible:$mnt/ansible \
+    -v $cprj/ansible:$mnt/ansible \
+    -v $docker_projects:$mnt/ansible/projects \
     -w $mnt/ansible \
     -v /usr/bin/docker:/usr/bin/docker \
-    -v /usr/bin/docker-compose:/usr/bin/docker-compose \
     -e DOCKER_HOST=$DOCKER_HOST \
     synergo/ansible-examples:0.1 \
     /sbin/my_init --skip-startup-files --skip-runit -- \
