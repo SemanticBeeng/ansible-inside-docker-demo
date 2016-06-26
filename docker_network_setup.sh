@@ -31,8 +31,8 @@ export CLUSTER_ADVERTISE="cluster-advertise=eth1:$SWARM_CLUSTER_PORT"
 
 function cluster_StartManager() {
 
-    local url=cluster_KVserviceURL
-    echo $url
+    local url=$(cluster_KVserviceURL)
+    echo "Starting manager on url " $url
     docker run --rm swarm manage $url/bigdata
 
     # Good option 2
