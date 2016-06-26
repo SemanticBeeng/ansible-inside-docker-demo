@@ -5,7 +5,10 @@ export SWARM_CLUSTER_PORT=2401
 export DOCKER_PORT=2400
 export CONSUL_PORT=8500
 
-## Get docker container IP address
+################################################
+# Get docker container IP address
+#
+# Resources:
 # http://networkstatic.net/10-examples-of-how-to-get-docker-container-ip-address/
 # https://forums.docker.com/t/how-to-get-a-full-id-of-a-certain-container/2418/2
 # http://stackoverflow.com/a/34497614/4032515
@@ -14,17 +17,15 @@ export CONSUL_PORT=8500
 function cluster_KVserviceURL() {
 
     local consul_container_name="progrium/consul"
-    local CONSUL_ID=$(docker ps | awk '{ print $1,$2 }' | grep $consul_container_name | awk '{print $1 }')
+    local consul_id=$(docker ps | awk '{ print $1,$2 }' | grep $consul_container_name | awk '{print $1 }')
 
     #export CONSUL_ID=$(docker inspect --format="{{.Id}}" progrium/consul)
 
-    local CONSUL_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' $CONSUL_ID)
+    local consul_ip=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' $consul_id)
 
-    echo "consul://$CONSUL_IP:$CONSUL_PORT"
+    echo "consul://$consul_ip:$CONSUL_PORT"
 }
 
-export CLUSTER_KV_STORE="cluster-store=$CONSUL_URL"
-export CLUSTER_ADVERTISE="cluster-advertise=eth1:$SWARM_CLUSTER_PORT"
 
 ################################################
 # Swarm : start manager
@@ -32,7 +33,7 @@ export CLUSTER_ADVERTISE="cluster-advertise=eth1:$SWARM_CLUSTER_PORT"
 function cluster_StartManager() {
 
     local url=$(cluster_KVserviceURL)
-    echo "Starting manager on url " $url
+    echo "Starting cluster manager on url " $url
     docker run --rm swarm manage $url/bigdata
 
     # Good option 2
@@ -47,8 +48,12 @@ function cluster_StartManager() {
 
 function cluster_JoinNode() {
 
-    docker run --rm swarm join --advertise=$THIS_NODE_IP:$SWARM_CLUSTER_PORT $CONSUL_URL/bigdata
+    local url=$(cluster_KVserviceURL)
+    echo "Joining cluster on url " $url
 
+    #CLUSTER_ADVERTISE="cluster-advertise=eth1:$SWARM_CLUSTER_PORT"
+
+    docker run --rm swarm join --advertise=$THIS_NODE_IP:$SWARM_CLUSTER_PORT $url/bigdata
 }
 
 
