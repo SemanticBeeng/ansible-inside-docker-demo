@@ -5,7 +5,7 @@ export mnt=/var/opt
 
 echo 'cwd' $cwd
 
-docker run -it \
+docker run -it --rm \
     -h devopscontrol \
     -v $cwd/hosts:/etc/ansible/hosts \
     -v $cwd/ansible.cfg:/etc/ansible/ansible.cfg \
