@@ -5,8 +5,22 @@ export SWARM_CLUSTER_PORT=2401
 export DOCKER_PORT=2400
 export CONSUL_PORT=8500
 
+export consul_container_name="progrium/consul"
+
 ################################################
-# Get docker container IP address
+# Cluster : start Key-Value store
+
+function cluster_StartKVStore() {
+
+    docker run -d \
+      -p "$CONSUL_PORT:$CONSUL_PORT" \
+      -h "consul" \
+      $consul_container_name -server -bootstrap
+}
+
+
+################################################
+# Cluster : get Key-Value store url
 #
 # Resources:
 # http://networkstatic.net/10-examples-of-how-to-get-docker-container-ip-address/
@@ -16,7 +30,6 @@ export CONSUL_PORT=8500
 
 function cluster_KVserviceURL() {
 
-    local consul_container_name="progrium/consul"
     local consul_id=$(docker ps | awk '{ print $1,$2 }' | grep $consul_container_name | awk '{print $1 }')
 
     #export CONSUL_ID=$(docker inspect --format="{{.Id}}" progrium/consul)
@@ -26,9 +39,18 @@ function cluster_KVserviceURL() {
     echo "consul://$consul_ip:$CONSUL_PORT"
 }
 
+################################################
+# Cluster : start Docker engine
+
+function cluster_StartDocker() {
+
+    sudo docker daemon -D -H $DOCKER_HOST --cluster-store=$(cluster_KVserviceURL)
+
+}
+
 
 ################################################
-# Swarm : start manager
+# Cluster : start manager
 
 function cluster_StartManager() {
 
@@ -44,7 +66,7 @@ function cluster_StartManager() {
 }
 
 ################################################
-# Swarm : advertise / join
+# Cluster : advertise / join
 
 function cluster_JoinNode() {
 
