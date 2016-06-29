@@ -44,7 +44,14 @@ function cluster_KVserviceURL() {
 
 function cluster_StartDocker() {
 
-    sudo docker daemon -D -H $DOCKER_HOST --cluster-store=$(cluster_KVserviceURL)
+#    sudo docker daemon -D -H $DOCKER_HOST --cluster-store=$(cluster_KVserviceURL)
+     sudo docker daemon -D \
+	-H $DOCKER_HOST \
+	--cluster-store=$(cluster_KVserviceURL) \
+        --cluster-advertise eth1:$DOCKER_PORT 
+#       --cluster-store-opt kv.cacertfile=/path/to/ca.pem \
+#       --cluster-store-opt kv.certfile=/path/to/cert.pem \
+#       --cluster-store-opt kv.keyfile=/path/to/key.pem	
 
 }
 
